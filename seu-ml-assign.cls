@@ -4,7 +4,7 @@
 %%                                                    %%
 %% ================================================== %%
 %%                                                    %%
-%% Version:     1.0 (2022/03/20)                      %%
+%% Version:     1.1 (2022/03/21)                      %%
 %% Author:      Teddy van Jerry (Wuqiong Zhao)        %%
 %% License:     MIT LICENSE                           %%
 %% GitHub Repo: https://tvj.one/ml-tex                %%
@@ -13,7 +13,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{seu-ml-assign}[2022/02/20 SEU Machine Learning Assignment Template]
+\ProvidesClass{seu-ml-assign}[2022/02/21 SEU Machine Learning Assignment Template]
 
 %% Class and Options
 \def\@@ptsize{10pt} % font size
@@ -24,6 +24,9 @@
 \def\@@solutionmode{1} % default as the solution mode
 \DeclareOption{solution}{\def\@@solutionmode{1}} % solution mode
 \DeclareOption{problem}{\def\@@solutionmode{0}} % problem mode
+\def\@twoside{0} % default as oneside
+\DeclareOption{oneside}{\def\@twoside{0}} % one-side document
+\DeclareOption{twoside}{\def\@twoside{1}} % two-side document
 \ProcessOptions\relax
 \LoadClass[a4paper,onecolumn,\@@ptsize]{article}
 
@@ -39,11 +42,13 @@
 \global\let\@instructor\@empty
 \global\let\@duedate\@empty
 \global\let\@author\@empty
+\global\let\@mainproblem\@empty
 \newcommand{\assignno}[1]{\gdef\@assignno{#1}} % Assignment Number
 \newcommand{\semester}[1]{\gdef\@semester{#1}} % Semester
 \newcommand{\studentID}[1]{\gdef\@studentID{#1}} % Student ID
 \newcommand{\instructor}[1]{\gdef\@instructor{#1}} % Instructor
 \newcommand{\duedate}[1]{\gdef\@duedate{#1}} % Due Date of the Assignment
+\newcommand{\mainproblem}[1]{\gdef\@mainproblem{#1}} % The main problem of the assignment
 
 %% Fonts and Colors
 \RequirePackage[T1]{fontenc}
@@ -189,17 +194,42 @@
 \setlength{\headheight}{52pt}
 \setlength{\marginparwidth}{2cm}
 \pagestyle{fancy}
-\lhead{
-    \fontfamily{LinuxLibertineT-OsF}\selectfont
-    \if\@@solutionmode1
-        \textsc{\@title~\@assignno} -- \@studentID~\@author
-    \else
+\if\@twoside0
+    \lhead{
+        \fontfamily{LinuxLibertineT-OsF}\selectfont
+        \if\@@solutionmode1
+            \textsc{\@title~\@assignno} -- \@studentID~\@author
+        \else
+            \textsc{Machine Learning \@title~\@assignno}
+        \fi
+    }
+    \rhead{\thepage}
+    \renewcommand\headrule{\vspace{-0.7em}\tikzrule[BrickRed, path fading=east]{.5\textwidth}{0.3mm}}
+\else
+    \fancyhf{}
+    \renewcommand\headrule{%
+        \ifodd\thepage
+            \vspace{-0.7em}\tikzrule[BrickRed, path fading=east]{.5\textwidth}{0.3mm}
+        \else
+            \vspace{-0.7em}\hfill\tikzrule[BrickRed, path fading=west]{.5\textwidth}{0.3mm}
+        \fi
+    }
+    \fancyhead[LO]{
+        \fontfamily{LinuxLibertineT-OsF}\selectfont
+        \if\@@solutionmode1
+            \textsc{\@title~\@assignno} -- \@studentID~\@author
+        \else
+            \textsc{Machine Learning \@title~\@assignno}
+        \fi
+        \renewcommand\headrule{\vspace{-0.7em}\tikzrule[BrickRed, path fading=east]{.5\textwidth}{0.3mm}}
+    }
+    \fancyhead[RE]{
+        \fontfamily{LinuxLibertineT-OsF}\selectfont
         \textsc{Machine Learning \@title~\@assignno}
-    \fi
-}
+    }
+    \fancyhead[LE,RO]{\thepage}
+\fi
 
-\rhead{\thepage}
-\renewcommand\headrule{\vspace{-0.7em}\tikzrule[BrickRed, path fading=east]{.5\textwidth}{0.3mm}}
 \cfoot{}
 % header and footer style for the first page
 \fancypagestyle{firstpage}{
@@ -273,7 +303,15 @@
     \end{minipage}
     \\[.3em]
     \tikzrule[cyan, path fading=east]{\textwidth}{.4em}
-    \vspace{2mm}
+
+    \ifx\@mainproblem\@empty
+        \vspace{2mm}
+    \else
+        \begin{center}
+            \vspace{-1\baselineskip}\color{RoyalPurple!50!black}
+            \LARGE\S~\@mainproblem~\S
+        \end{center}
+    \fi
 
     \fontfamily{cmr}\selectfont % Computer Modern
 
@@ -290,7 +328,12 @@
             - Machine Learning
         },
         pdfsubject={Machine Learning},
-        pdfkeywords={Machine Learning, \@title},
+        pdfkeywords={%
+            Machine Learning, \@title%
+            \ifx\@mainproblem\@empty\else%
+                , \@mainproblem
+            \fi
+        },
         pdfcreator={LaTeX with SEU-ML-Assign class},
         pdfproducer={LaTeX}
     }

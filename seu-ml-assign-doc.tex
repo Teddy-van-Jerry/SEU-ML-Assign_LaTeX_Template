@@ -1,6 +1,6 @@
 %! TEX program = pdflatex
 
-\documentclass{seu-ml-assign}
+\documentclass[twoside]{seu-ml-assign}
 
 \title{Documentation}
 \author{Teddy van Jerry}
@@ -8,8 +8,9 @@
 \instructor{TeX - LaTeX Stack Exchange}
 \date{\today}
 \duedate{20:00 March 21, 2022}
-\assignno{1.0}
+\assignno{1.1}
 \semester{LaTeX Template}
+\mainproblem{Template Documentation}
 
 \renewcommand{\sectionheadname}{Section}
 \renewcommand{\pdftitleadditionalname}{}
@@ -36,13 +37,14 @@
         \begin{tabular}{ll}
         \toprule
           \grayrow \textbf{Package Class Name} & seu-ml-assign \\
-          \textbf{Version} & 1.0 (2022/03/20) \\
+          \textbf{Version} & 1.1 (2022/03/21) \\
           \grayrow \textbf{Description} & \LaTeX{} Template for Southeast University Machine Learning Assignment \\
           \textbf{Author} & Teddy van Jerry (Wuqiong Zhao) \\
           \grayrow \textbf{Maintainer} & Teddy van Jerry (Wuqiong Zhao) \\
           \textbf{GitHub Repository} & \url{https://tvj.one/ml-tex} \\
           \grayrow \textbf{Issues} & \url{https://tvj.one/ml-tex/issues} \\
-          \textbf{Open Source License} & MIT License (\url{https://tvj.one/ml-tex/blob/master/LICENSE}) \\
+          \textbf{CTAN Package} & \url{https://www.ctan.org/pkg/seu-ml-assign} \\
+          \grayrow\textbf{Open Source License} & MIT License (\url{https://tvj.one/ml-tex/blob/master/LICENSE}) \\
         \bottomrule
         \end{tabular}%
       \egroup
@@ -56,31 +58,38 @@
     \begin{lstlisting}[language=tex,numbers=none]
 \documentclass{seu-ml-assign} % SEU Machine Learning Assignment Template
     \end{lstlisting}
-    There are 6 supported options:
+    There are 8 supported options:
     \begin{table}[htbp]
       \bgroup
         \def\arraystretch{1.2}
         \setlength{\tabcolsep}{1.5em}
-        \begin{tabular}{ll}
+        \begin{tabular}{llc}
           \toprule
-          \textbf{Option} & \textbf{Description} \\
+          \textbf{Option} & \textbf{Description} & \textbf{Default} \\
           \midrule\midrule
-          \grayrow \texttt{solution} & Write solutions (for students). \textbf{[Default]} \\
-          \texttt{problem} & Write problem sets (for instructors). \\
-          \grayrow \texttt{9pt} & Set font size as 9 points. \\
-          \texttt{10pt} & Set font size as 10 points. \textbf{[Default]} \\
-          \grayrow \texttt{11pt} & Set font size as 11 points. \\
-          \texttt{12pt} & Set font size as 12 points. \\
+          \grayrow \texttt{solution} & Write solutions (for students). & \textbullet \\
+          \texttt{problem} & Write problem sets (for instructors). & \\
+          \hline
+          \grayrow \texttt{oneside} & One-sided document. & \textbullet \\
+          \texttt{twoside}& Two-sided document. & \\
+          \hline
+          \grayrow \texttt{9pt} & Set font size as 9 points. & \\
+          \texttt{10pt} & Set font size as 10 points. & \textbullet \\
+          \grayrow \texttt{11pt} & Set font size as 11 points. & \\
+          \texttt{12pt} & Set font size as 12 points. & \\
         \bottomrule
       \end{tabular}%
       \egroup
     \end{table}
 
-    For example, a 10pt document for instructors to create an assignment consisting of problem sets should use
+    For example, a 10pt, two-sided document for instructors to create an assignment consisting of problem sets should use
 
     \begin{lstlisting}[language=tex,numbers=none]
-\documentclass[10pt,problem]{seu-ml-assign} % The 10pt option can be omitted.
+\documentclass[10pt,twoside,problem]{seu-ml-assign} % The 10pt option can be omitted.
     \end{lstlisting}
+
+    With the \texttt{twoside} option, the header will switch style every page, as is the case in this documentation.
+    In contrast, the sample file uses the \texttt{oneside} option.
 
     There are several differences between the \texttt{solution} mode and \texttt{problem} mode,
     including the preset texts on the document (for example the student name is not shown in the \texttt{problem} mode) and some properties can only be used with the \texttt{problem} mode which will be elaborated on in \S\ref{subsec:prob_only_properties}.
@@ -90,6 +99,7 @@
     \subsection{Fields}
 
       There are several fields to set.
+      The main problem can be left empty.
       Consider the following example used in the sample file:
       \begin{lstlisting}[language=tex,numbers=none]
 \title{Assignment}                       % Document Type: assignment, quiz, etc.
@@ -100,6 +110,7 @@
 \duedate{20:00 March 21, 2022}           % The Time the Assignment is Due
 \assignno{1}                             % Assignment Number
 \semester{SEU --- 2022 Spring}           % Semester
+\mainproblem{Linear Algreba}             % The Main Problem or Topic
       \end{lstlisting}
     
       With these fields set, you can use the command \verb|\maketitle| to print the title.
@@ -200,15 +211,31 @@
   \section{Known Issues}\label{sec:known_issues}
 
     \begin{itemize}
+      \item Book tabs are empty when using \verb|\subproblem{}| command;
       \item \verb|\section*{}| still shows the section number except for it does not increment the section counter by one;
       \item The section title background height may not be accurate;
       \item The style of the footnote line has not been adapted to the current colorful theme.
     \end{itemize}
 
+  \section{Change Log}
+
+    \begin{itemize}
+      \item [\textbf{v1.1}] 2022/03/21 -- Bug Fix and Enhancement
+        \begin{enumerate}
+          \item Add \verb|\mainproblem{}| command;
+          \item Add the \texttt{twoside} option.
+        \end{enumerate}
+      \item [\textbf{v1.0}] 2022/03/19 -- Initial Version
+        \begin{enumerate}
+          \item Initial \texttt{cls} file in addition to a sample file and documentation;
+          \item Publish at GitHub and CTAN.
+        \end{enumerate}
+    \end{itemize}
+
   \section{Source Code}
 
-    The source code of \texttt{SEU-ML-Assign.cls} is listed below.
+    The source code of \texttt{seu-ml-assign.cls} is listed below.
 
-    \lstinputlisting[language=tex,linerange={15-1000},firstnumber=15]{SEU-ML-Assign.cls}
+    \lstinputlisting[language=tex,linerange={15-1000},firstnumber=15]{seu-ml-assign.cls}
 
 \end{document}
