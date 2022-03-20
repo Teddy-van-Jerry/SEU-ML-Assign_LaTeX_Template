@@ -1,0 +1,214 @@
+%! TEX program = pdflatex
+
+\documentclass{seu-ml-assign}
+
+\title{Documentation}
+\author{Teddy van Jerry}
+\studentID{}
+\instructor{TeX - LaTeX Stack Exchange}
+\date{\today}
+\duedate{20:00 March 21, 2022}
+\assignno{1.0}
+\semester{LaTeX Template}
+
+\renewcommand{\sectionheadname}{Section}
+\renewcommand{\pdftitleadditionalname}{}
+
+\usepackage{booktabs}
+\usepackage{colortbl}
+% option for tabular with '\midrule'
+\aboverulesep = 0mm \belowrulesep = 0mm
+
+\newcommand{\grayrow}{\rowcolor[rgb]{ .906,  .902,  .902}}
+
+\begin{document}
+  \maketitle
+
+  \section{Basic Information of This Template Class}
+
+    Despite this \textit{SEU-ML-Assign} class is dedicated to Southeast University as the Machine Learning assignment \LaTeX{} template both for teachers and students, it can also be used for other schools.
+    In the near future, it will eventually become an elegant template for all assignment requirememts.
+
+    \begin{table}[htbp]
+      \bgroup
+        \def\arraystretch{1.2}
+        \setlength{\tabcolsep}{1.5em}
+        \begin{tabular}{ll}
+        \toprule
+          \grayrow \textbf{Package Class Name} & seu-ml-assign \\
+          \textbf{Version} & 1.0 (2022/03/20) \\
+          \grayrow \textbf{Description} & \LaTeX{} Template for Southeast University Machine Learning Assignment \\
+          \textbf{Author} & Teddy van Jerry (Wuqiong Zhao) \\
+          \grayrow \textbf{Maintainer} & Teddy van Jerry (Wuqiong Zhao) \\
+          \textbf{GitHub Repository} & \url{https://tvj.one/ml-tex} \\
+          \grayrow \textbf{Issues} & \url{https://tvj.one/ml-tex/issues} \\
+          \textbf{Open Source License} & MIT License (\url{https://tvj.one/ml-tex/blob/master/LICENSE}) \\
+        \bottomrule
+        \end{tabular}%
+      \egroup
+    \end{table}
+
+    You can contact me at \href{mailto:me@tvj.one}{me@tvj.one} for support.
+
+  \section{Class Options}
+
+    To use this template, put \texttt{seu-ml-assign.cls} file under the same directory with your main \texttt{tex} file.
+    \begin{lstlisting}[language=tex,numbers=none]
+\documentclass{seu-ml-assign} % SEU Machine Learning Assignment Template
+    \end{lstlisting}
+    There are 6 supported options:
+    \begin{table}[htbp]
+      \bgroup
+        \def\arraystretch{1.2}
+        \setlength{\tabcolsep}{1.5em}
+        \begin{tabular}{ll}
+          \toprule
+          \textbf{Option} & \textbf{Description} \\
+          \midrule\midrule
+          \grayrow \texttt{solution} & Write solutions (for students). \textbf{[Default]} \\
+          \texttt{problem} & Write problem sets (for instructors). \\
+          \grayrow \texttt{9pt} & Set font size as 9 points. \\
+          \texttt{10pt} & Set font size as 10 points. \textbf{[Default]} \\
+          \grayrow \texttt{11pt} & Set font size as 11 points. \\
+          \texttt{12pt} & Set font size as 12 points. \\
+        \bottomrule
+      \end{tabular}%
+      \egroup
+    \end{table}
+
+    For example, a 10pt document for instructors to create an assignment consisting of problem sets should use
+
+    \begin{lstlisting}[language=tex,numbers=none]
+\documentclass[10pt,problem]{seu-ml-assign} % The 10pt option can be omitted.
+    \end{lstlisting}
+
+    There are several differences between the \texttt{solution} mode and \texttt{problem} mode,
+    including the preset texts on the document (for example the student name is not shown in the \texttt{problem} mode) and some properties can only be used with the \texttt{problem} mode which will be elaborated on in \S\ref{subsec:prob_only_properties}.
+
+  \section{Document Properties}
+
+    \subsection{Fields}
+
+      There are several fields to set.
+      Consider the following example used in the sample file:
+      \begin{lstlisting}[language=tex,numbers=none]
+\title{Assignment}                       % Document Type: assignment, quiz, etc.
+\author{Teddy van Jerry}                 % Your Name
+\studentID{61520522}                     % Your Student ID
+\instructor{TeX - LaTeX Stack Exchange}  % The Name of Your Instructor
+\date{\today}                            % The Submission or Release Date
+\duedate{20:00 March 21, 2022}           % The Time the Assignment is Due
+\assignno{1}                             % Assignment Number
+\semester{SEU --- 2022 Spring}           % Semester
+      \end{lstlisting}
+    
+      With these fields set, you can use the command \verb|\maketitle| to print the title.
+      At the same time, the metadata for the PDF document is automatically set.
+
+    \subsection{Problem Mode Only Properties}\label{subsec:prob_only_properties}
+    One of the fields \verb|\author{}| and \verb|\instructor{}| can be omitted or set as empty provided that they are the same.
+
+  \section{Section Title (Problem) Settings}
+
+    \subproblem{Normal Title}
+
+      The title of a problem can be set as \verb|\section{This is a Section Title}| or uses a higher level command \verb|\problem{This is a Section Title}|.
+
+    \subproblem{Problem with Points}
+
+      The points of a problem can be set using command \verb|\problempts{xxx}| before calling the \verb|\section{}| command.
+      These two commands can be simplified to \verb|\problem[xxx]{}|.
+      For example, using the command \verb|\problem[15]{This is a Problem Worth 15 Points}| will have:\vspace{-8mm}
+
+      \renewcommand{\sectionheadname}{Problem}
+      \setproblem{1}
+
+      % \problem[15]{This is a Problem Worth 15 Points}
+      \problempts{15}
+      \section*{This is a Problem Worth 15 Points}
+      Note that if the point is an empty string, the point information will not be shown.
+
+    \subproblem{Long Title Compatibility}
+      There is also no problem if the section title is too long.\vspace{-8mm}
+
+      \setproblem{2}
+      \problempts{20}
+      \section*{I Don't Think that Anyone Will Enjoy Themselves Seeing a Very Very Long Problem That is Worth Twenty Points in this Machine Learning Course}
+
+      \renewcommand{\sectionheadname}{Section}
+      \setproblem{4}
+
+    \subproblem{Section Title Name}
+      The name of the section (default name as \texttt{problem}) can be changed by using \verb|\renewcommand{\sectionheadname}{Name}|.
+
+    \subproblem{Section Number}
+    The number of the section can be changed, for example \verb|\texttt{\setproblem{4}}| will make the next section number be \texttt{5}.
+    For experienced \LaTeX{} users to understand, this command actually change the section counter.
+
+    \subproblem{Solution Declaration}
+    You can use \verb|\startsolution| to declare you start writing the solution.
+    This will reset the section number and it is especially useful when your document contains problems and solutions as two separate parts.
+    There is an option \texttt{print} and if you use \verb|\startsolution[print]| you will get:
+
+    \startsolution[print]
+    and the word \textsc{Solution} can be changed using command \verb|\renewcommand{\solutionname}{Other Name}|.
+
+
+  \setproblem{4}
+  \section{Subsection Title (Sub Problem) Settings}
+
+    \subproblem{Normal Title} This is a normal title using command \verb|\subproblem{Normal Title}| or its equivalent command \verb|\subsection{Normal Title}|.
+
+    \subproblem{} Use \verb|\subproblem{}| or \verb|\subsection{}| if only the sub problem number is required (like this line).
+
+    \subproblem{Subsection Number} Similar to \verb|\setproblem{}|, there is also \verb|\setsubproblem{}|.
+
+  \section{Other Tools}
+
+    \subsection{Equation Numbering} The equation number is within the section (problem), for example
+
+      \begin{equation}\label{eq:2-1-det}
+        \mathrm{det}(\mathbf{A})=1\times\begin{vNiceArray}{rr}
+          -5&3\\-6&4
+        \end{vNiceArray}-(-3)\times\begin{vNiceArray}{rr}
+          3&3\\6&4
+        \end{vNiceArray}+3\times\begin{vNiceArray}{rr}
+          3&-5\\6&-6
+        \end{vNiceArray}=1\times(-2)+3\times(-6)+3\times 12=16.
+      \end{equation}
+
+    \subsection{Maths Packages} Maths Package \texttt{mathtools}, \texttt{amssymb}, \texttt{amsthm}, \texttt{bm} and \texttt{nicematrix} are automatically loaded.
+    The \texttt{nicematrix} package is especially powerful in terms of writing a matrix.
+    You can find its documentation at \url{https://ctan.org/pkg/nicematrix}.
+
+    \subsection{Fancy Box} A fancy box has been defined.
+      \begin{fancybox}{This is a Title}
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin viverra massa rutrum felis vulputate, ac faucibus velit accumsan. Vivamus aliquet felis nec interdum sollicitudin. Nullam ornare eu velit id cursus. Maecenas a sodales velit, vel cursus magna. Cras lobortis venenatis.
+      \end{fancybox}
+
+
+    You can use the following code to generate it.
+    \begin{lstlisting}[language=tex,numbers=none,morekeywords={begin}]
+\begin{fancybox}{This is a Title}
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin viverra massa rutrum felis vulputate, ac faucibus velit accumsan. Vivamus aliquet felis nec interdum sollicitudin. Nullam ornare eu velit id cursus. Maecenas a sodales velit, vel cursus magna. Cras lobortis venenatis.
+\end{fancybox}
+    \end{lstlisting}
+
+  \appendix
+  \renewcommand{\sectionheadname}{Appendix}
+
+  \section{Known Issues}\label{sec:known_issues}
+
+    \begin{itemize}
+      \item \verb|\section*{}| still shows the section number except for it does not increment the section counter by one;
+      \item The section title background height may not be accurate;
+      \item The style of the footnote line has not been adapted to the current colorful theme.
+    \end{itemize}
+
+  \section{Source Code}
+
+    The source code of \texttt{SEU-ML-Assign.cls} is listed below.
+
+    \lstinputlisting[language=tex,linerange={15-1000},firstnumber=15]{SEU-ML-Assign.cls}
+
+\end{document}
