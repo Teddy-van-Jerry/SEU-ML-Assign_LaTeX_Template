@@ -1,10 +1,17 @@
 # SEU-ML-Assign LaTeX Template
 LaTeX Template for Southeast University Machine Learning Assignment
 
-> GitHub Project Site: https://tvj.one/ml-tex
+***
+<p align="center">
+   <a href="https://ctan.org/pkg/seu-ml-assign">CTAN</a> • <a href="https://github.com/Teddy-van-Jerry/SEU-ML-Assign_LaTeX_Template">GitHub</a> • <a href="http://mirrors.ctan.org/macros/latex/contrib/seu-ml-assign/seu-ml-assign-doc.pdf">Documentation</a> • <a href="https://github.com/Teddy-van-Jerry/SEU-ML-Assign_LaTeX_Template/blob/master/SEU-ML-Assign-sample.pdf">Sample</a> • <a href="https://github.com/Teddy-van-Jerry/SEU-ML-Assign_LaTeX_Template/issues">Issues</a>
+</p>
 
+***
+
+> - GitHub Project Site: https://tvj.one/ml-tex
+> - CTAN: https://ctan.org/pkg/seu-ml-assign
 ## Class and Options
-This project provides the `SEU-ML-Assign` class.
+This project provides the `seu-ml-assign` class.
 
 | Option | Explanation |
 | - | - |
@@ -23,8 +30,9 @@ Please refer to the [documentation](seu-ml-assign-doc.pdf).
 - [x] Example `tex` File
 - [x] Class Documentation
 - [ ] Class Website
-- [ ] Submission to CTAN
+- [x] Submission to CTAN
 - [ ] Demonstration Video
+- [ ] More Flexible Usage
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
