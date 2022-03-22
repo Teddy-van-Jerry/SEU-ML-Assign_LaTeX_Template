@@ -4,16 +4,16 @@
 %%                                                    %%
 %% ================================================== %%
 %%                                                    %%
-%% Version:     1.1 (2022/03/21)                      %%
+%% Version:     1.1 (2022/03/22)                      %%
 %% Author:      Teddy van Jerry (Wuqiong Zhao)        %%
 %% License:     MIT LICENSE                           %%
 %% GitHub Repo: https://tvj.one/ml-tex                %%
-%% Compiler:    pdflatex, xelatex, lualatex           %%
+%% Compiler:    latex, pdflatex, xelatex, lualatex    %%
 %%                                                    %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{seu-ml-assign}[2022/02/21 SEU Machine Learning Assignment Template]
+\ProvidesClass{seu-ml-assign}[2022/02/22 SEU Machine Learning Assignment Template]
 
 %% Class and Options
 \def\@@ptsize{10pt} % font size
@@ -61,6 +61,7 @@
 
 %% Sections Settings
 \RequirePackage[explicit]{titlesec} % explained in https://tex.stackexchange.com/a/292307/234654
+\RequirePackage{suffix}
 % http://mirrors.ctan.org/macros/latex/contrib/titlesec/titlesec.pdf
 \pgfdeclarelayer{background}
 \pgfsetlayers{background,main}
@@ -69,32 +70,42 @@
 \newcommand{\problemptsprint}{\ifx\@problempts\@empty\else(\@problempts~points)\fi}
 \newcommand{\sectionheadname}{Problem} % Name for the Section (default as 'Problem')
 % Reference: https://tex.stackexchange.com/a/12269/234654
-\newcommand{\boxedsection}[3][blue!20]{{%
+\newcommand{\boxedsection}[4][blue!20]{{%
     \begin{tikzpicture}[inner sep=0pt, inner ysep=0.3ex]
         \node[anchor=base west] at (0,0) (counter) {#2};
-        \path let \p1 = (counter.base east) in node[anchor=base west, text width={\textwidth-\x1-0.33em}] (content)
-            at ($(counter.base east)+(0.33em,0)$) {#3};
+        \path let \p1 = (counter.base east) in node[anchor=base west, text width={\textwidth-\x1-#4}] (content)
+            at ($(counter.base east)+(#4,0)$) {#3};
         \begin{pgfonlayer}{background}
             \shade[left color=#1,right color=white] let \p1=(counter.north), \p2=(content.north) in
             (0,{max(\y1,\y2)}) rectangle (content.south east);
         \end{pgfonlayer}
     \end{tikzpicture}
 }}
-% \titleformat{<command>}
-%     [<shape>]{<format>}{<label>}{<sep>}{<before-code>}[<after-code>]
-\titleformat{\section}%   
-    {\Large\bfseries}%
-    {}%
-    {0pt}%
-    {\boxedsection{\sectionheadname{} \thesection:}{#1}}%
+% For numbered section, i.e. \section{}
+\titleformat{\section}% <command>
+    {\Large\bfseries}% <format>
+    {}% <label>
+    {0pt}% <sep>
+    {\boxedsection{\sectionheadname{} \thesection:}{#1}{0.33em}}% <before-code>
     [%
-        \vspace{-2.1\baselineskip}\hfill{\normalfont\small\problemptsprint}%
+        \vspace{-2.2\baselineskip}\hfill{\normalfont\small\problemptsprint}%
         \problempts{}% clear the problem points
-    ]%
+    ]% <after-code>
+% For unnumbered section, i.e. \section*{}
+\titleformat{name=\section,numberless}% <command>
+    {\Large\bfseries}% <format>
+    {}% <label>
+    {0pt}% <sep>
+    {\boxedsection{}{#1}{0em}}% <before-code>
+    [%
+        \vspace{-2.2\baselineskip}\hfill{\normalfont\small\problemptsprint}%
+        \problempts{}% clear the problem points
+    ]% <after-code>
 \newcommand{\setproblem}[1]{\ifx#1\@empty\else\setcounter{section}{#1}\fi} % force the number of problem
 \newcommand{\setsubproblem}[1]{\ifx#1\@empty\else\setcounter{subsection}{#1}\fi} % force the number of subproblem
-\newcommand{\problem}[2][]{\problempts{#1}\section{#2}}%
-\newcommand{\solutionname}{Solution}
+\newcommand{\problem}[2][]{\problempts{#1}\section[\thesection:~#2]{#2}}%
+\WithSuffix\newcommand\problem*[2][]{\problempts{#1}\section*{#2}}%
+\newcommand{\solutionname}{Solution}%
 \newcommand{\startsolution}[1][print]{%
     \setproblem{0}% reset the section counter
     \def\startsolutionprintoption{print}
@@ -103,16 +114,18 @@
         {%
             \fontfamily{LinuxLibertineT-OsF}\selectfont% select font as Linux Libertine
             \centering\LARGE\scshape%
+            \vspace{\baselineskip}%
             \solutionname{}\\[-0.2em]%
         }%
         \noindent%
-        \tikzrule[WildStrawberry, path fading=west]{.5\textwidth}{.2em}% <-- Do not remove this
-        \tikzrule[WildStrawberry, path fading=east]{.5\textwidth}{.2em}
+        \tikzrule[WildStrawberry, path fading=west]{.5\textwidth}{.2em}%
+        \tikzrule[WildStrawberry, path fading=east]{.5\textwidth}{.2em}%
     }\fi%
 }
 \titlespacing*{\section}{0em}{2.5\baselineskip}{1\baselineskip}
-\titleformat{\subsection}[runin]{\large\bfseries}{}{0pt}{(\arabic{subsection}) #1}%
-\newcommand{\subproblem}[2][]{\subsection[#1]{#2}}
+\titleformat{\subsection}[runin]{\large\bfseries}{(\arabic{subsection})}{0.33em}{#1}%
+\newcommand{\subproblem}[1]{\subsection[(\arabic{subsection}) #1]{#1}}
+\WithSuffix\newcommand\subproblem*[1]{\subsection*{#1}}
 \titleformat{\subsubsection}[runin]{}{}{0pt}{(\arabic{subsubsection}. #1}
 
 %% Maths Settings
@@ -229,7 +242,6 @@
     }
     \fancyhead[LE,RO]{\thepage}
 \fi
-
 \cfoot{}
 % header and footer style for the first page
 \fancypagestyle{firstpage}{
@@ -240,7 +252,7 @@
         \fontfamily{LinuxLibertineT-OsF}\selectfont
         \vspace*{-\firstfooteradditionalheight}
         \vspace{-1.5em}
-        \tikzrule[purple, path fading=west]{.5\textwidth}{.15em}% <-- Do not remove this
+        \tikzrule[purple, path fading=west]{.5\textwidth}{.15em}%
         \tikzrule[purple, path fading=east]{.5\textwidth}{.15em}
 
         \footnotesize\centering
@@ -256,6 +268,10 @@
         E-mail \href{mailto:me@tvj.one}{me@tvj.one} for support. 
     }
 }
+
+%% Footnote
+\renewcommand{\footnoterule}{\noindent\tikzrule[SeaGreen, path fading=east]{.4\textwidth}{.1em}}
+\renewcommand{\footnotesep}{1em}
 
 %% Title Settings
 \RequirePackage{tabularx}
@@ -325,7 +341,7 @@
             \if\@@solutionmode1
                 \pdftitleadditionalname{}
             \fi
-            - Machine Learning
+            - Machine Learning%
         },
         pdfsubject={Machine Learning},
         pdfkeywords={%
