@@ -3,7 +3,7 @@ LaTeX Template for Southeast University Machine Learning Assignment
 
 ***
 <p align="center">
-   <a href="https://ctan.org/pkg/seu-ml-assign">CTAN</a> • <a href="https://github.com/Teddy-van-Jerry/SEU-ML-Assign_LaTeX_Template">GitHub</a> • <a href="http://mirrors.ctan.org/macros/latex/contrib/seu-ml-assign/seu-ml-assign-doc.pdf">Documentation</a> • <a href="https://github.com/Teddy-van-Jerry/SEU-ML-Assign_LaTeX_Template/blob/master/SEU-ML-Assign-sample.pdf">Sample</a> • <a href="https://github.com/Teddy-van-Jerry/SEU-ML-Assign_LaTeX_Template/issues">Issues</a> • <a href="https://tex.teddy-van-jerry.org/read/dfmxqftrfsrf">TVJ TeX</a>
+   <a href="https://ctan.org/pkg/seu-ml-assign">CTAN</a> • <a href="https://github.com/Teddy-van-Jerry/SEU-ML-Assign_LaTeX_Template">GitHub</a> • <a href="http://mirrors.ctan.org/macros/latex/contrib/seu-ml-assign/seu-ml-assign-doc.pdf">Documentation</a> • <a href="https://github.com/Teddy-van-Jerry/SEU-ML-Assign_LaTeX_Template/blob/master/SEU-ML-Assign-sample.pdf">Sample</a> • <a href="https://github.com/Teddy-van-Jerry/SEU-ML-Assign_LaTeX_Template/issues">Issues</a> • <a href="https://tex.teddy-van-jerry.org/read/dfmxqftrfsrf">TVJ TeX</a> • <a href="https://www.overleaf.com/latex/templates/seu-ml-assign/qdmmbycxbgqd">Overleaf</a>
 </p>
 
 ***
