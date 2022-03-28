@@ -4,7 +4,7 @@
 %%                                                    %%
 %% ================================================== %%
 %%                                                    %%
-%% Version:     1.1 (2022/03/22)                      %%
+%% Version:     1.1 (2022/03/28)                      %%
 %% Author:      Teddy van Jerry (Wuqiong Zhao)        %%
 %% License:     MIT LICENSE                           %%
 %% GitHub Repo: https://tvj.one/ml-tex                %%
@@ -13,7 +13,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{seu-ml-assign}[2022/02/22 SEU Machine Learning Assignment Template]
+\ProvidesClass{seu-ml-assign}[2022/03/28 SEU Machine Learning Assignment Template]
 
 %% Class and Options
 \def\@@ptsize{10pt} % font size
@@ -103,7 +103,7 @@
     ]% <after-code>
 \newcommand{\setproblem}[1]{\ifx#1\@empty\else\setcounter{section}{#1}\fi} % force the number of problem
 \newcommand{\setsubproblem}[1]{\ifx#1\@empty\else\setcounter{subsection}{#1}\fi} % force the number of subproblem
-\newcommand{\problem}[2][]{\problempts{#1}\section[\thesection:~#2]{#2}}%
+\newcommand{\problem}[2][]{\problempts{#1}\section[\thesection~#2]{#2}}%
 \WithSuffix\newcommand\problem*[2][]{\problempts{#1}\section*{#2}}%
 \newcommand{\solutionname}{Solution}%
 \newcommand{\startsolution}[1][print]{%
@@ -123,10 +123,12 @@
     }\fi%
 }
 \titlespacing*{\section}{0em}{2.5\baselineskip}{1\baselineskip}
-\titleformat{\subsection}[runin]{\large\bfseries}{(\arabic{subsection})}{0.33em}{#1}%
+\titleformat{\subsection}[runin]{\large\bfseries}{(\arabic{subsection})}{0.33em}{#1}
 \newcommand{\subproblem}[1]{\subsection[(\arabic{subsection}) #1]{#1}}
 \WithSuffix\newcommand\subproblem*[1]{\subsection*{#1}}
-\titleformat{\subsubsection}[runin]{}{}{0pt}{(\arabic{subsubsection}. #1}
+\titleformat{\subsubsection}[runin]{\bfseries}{\arabic{subsubsection}.}{0.33em}{#1}
+\newcommand{\subsubproblem}[1]{\subsubsection[\arabic{subsubsection}. #1]{#1}}
+\WithSuffix\newcommand\subsubproblem*[1]{\subsubsection*{#1}}
 
 %% Maths Settings
 \RequirePackage{mathtools}
@@ -135,6 +137,14 @@
 \RequirePackage{bm} % \bm command
 \RequirePackage{nicematrix}
 \numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newcommand{\hintstyle}{\itshape}
+\newcommand{\hint}[1]{({\hintstyle Hint: #1})}
+\DeclareMathOperator*{\argmin}{\arg\min}
+\DeclareMathOperator*{\argmax}{\arg\max}
 
 %% Code Block Settings
 \RequirePackage{listings}
@@ -153,7 +163,7 @@
     backgroundcolor=\color{gray!5},
     basicstyle={\ttfamily\small},
     numberstyle=\footnotesize\color{gray},
-    keywordstyle=\bfseries\color{blue},
+    keywordstyle=\bfseries\color{MidnightBlue!95!black},
     commentstyle=\color{dkgreen},
     stringstyle=\color{mauve},
     breaklines=true,
@@ -201,9 +211,14 @@
     title={#2},#1
 }
 
+%% Footnote Settings
+\RequirePackage[bottom]{footmisc} % glue footnote to bottom
+\renewcommand{\footnoterule}{\noindent\tikzrule[SeaGreen, path fading=east]{.4\textwidth}{.1em}}
+\renewcommand{\footnotesep}{1em}
+
 %% Header and Footer
 \RequirePackage{fancyhdr}
-\RequirePackage[colorlinks=true,urlcolor=blue,linkcolor=purple,citecolor=red]{hyperref}
+\RequirePackage[colorlinks=true, urlcolor=blue, linkcolor=purple, citecolor=red, hypertexnames=false]{hyperref}
 \setlength{\headheight}{52pt}
 \setlength{\marginparwidth}{2cm}
 \pagestyle{fancy}
@@ -269,10 +284,6 @@
     }
 }
 
-%% Footnote
-\renewcommand{\footnoterule}{\noindent\tikzrule[SeaGreen, path fading=east]{.4\textwidth}{.1em}}
-\renewcommand{\footnotesep}{1em}
-
 %% Title Settings
 \RequirePackage{tabularx}
 \RequirePackage{afterpage}
@@ -312,7 +323,8 @@
         \centering
         {
             \large
-            \textcolor{BrickRed}{\sffamily \@semester}
+            \fontfamily{LinuxBiolinumT-OsF}\selectfont
+            \textcolor{BrickRed}{\@semester}
             \vspace{2mm}
         }
         \LARGE\@title~{\fontfamily{bch}\selectfont\@assignno}
@@ -347,8 +359,8 @@
         pdfkeywords={%
             Machine Learning, \@title%
             \ifx\@mainproblem\@empty\else%
-                , \@mainproblem
-            \fi
+                , \@mainproblem%
+            \fi%
         },
         pdfcreator={LaTeX with SEU-ML-Assign class},
         pdfproducer={LaTeX}

@@ -10,17 +10,20 @@ LaTeX Template for Southeast University Machine Learning Assignment
 
 > - GitHub Project Site: https://tvj.one/ml-tex
 > - CTAN: https://ctan.org/pkg/seu-ml-assign
+> - Website: https://seu-ml-assign.github.io
 ## Class and Options
 This project provides the `seu-ml-assign` class.
 
-| Option | Explanation |
-| - | - |
-| `solution` | Write solutions (for students). **[default]** |
-| `problem` | Write problem sets (for instructors). |
-| `9pt` | Set font size as 9 points. |
-| `10pt` | Set font size as 10 points. **[default]** |
-| `11pt` | Set font size as 11 points. |
-| `12pt` | Set font size as 12 points. |
+| Option | Explanation | Default |
+| - | - | :-: |
+| `solution` | Write solutions (for students). | • |
+| `problem` | Write problem sets (for instructors). ||
+| `oneside` | One-sided document. | • |
+| `twoside` | Two-sided document. ||
+| `9pt` | Set font size as 9 points. ||
+| `10pt` | Set font size as 10 points. | • |
+| `11pt` | Set font size as 11 points. ||
+| `12pt` | Set font size as 12 points. ||
 
 ## Commands and Usage
 Please refer to the [documentation](seu-ml-assign-doc.pdf).
@@ -29,7 +32,7 @@ Please refer to the [documentation](seu-ml-assign-doc.pdf).
 - [x] Class Definition
 - [x] Example `tex` File
 - [x] Class Documentation
-- [ ] Class Website
+- [x] Class Website
 - [x] Submission to CTAN
 - [ ] Demonstration Video
 - [ ] More Flexible Usage

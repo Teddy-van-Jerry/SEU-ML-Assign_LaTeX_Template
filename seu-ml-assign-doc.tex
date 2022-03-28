@@ -5,13 +5,14 @@
 \usepackage{booktabs}
 \usepackage{colortbl}
 \usepackage{multicol}
+\usepackage{threeparttable}
 
 \title{Documentation}
 \author{Teddy van Jerry}
 \studentID{}
 \instructor{TeX - LaTeX Stack Exchange}
 \date{\today}
-\duedate{20:00 March 22, 2022}
+\duedate{20:00 March 30, 2022}
 \assignno{1.1}
 \semester{LaTeX Template}
 \mainproblem{Template Documentation}
@@ -39,14 +40,15 @@
         \begin{tabular}{ll}
         \toprule
           \grayrow \textbf{Package Class Name} & \texttt{seu-ml-assign} \\
-          \textbf{Version} & 1.1 (2022/03/22) \\
+          \textbf{Version} & 1.1 (2022/03/28) \\
           \grayrow \textbf{Description} & \LaTeX{} Template for Southeast University Machine Learning Assignment \\
           \textbf{Author} & Teddy van Jerry (Wuqiong Zhao) \\
           \grayrow \textbf{Maintainer} & Teddy van Jerry (Wuqiong Zhao) \\
           \textbf{GitHub Repository} & \url{https://tvj.one/ml-tex} \\
           \grayrow \textbf{Issues} & \url{https://tvj.one/ml-tex/issues} \\
           \textbf{CTAN Package} & \url{https://www.ctan.org/pkg/seu-ml-assign} \\
-          \grayrow\textbf{Open Source License} & MIT License (\url{https://tvj.one/ml-tex/blob/master/LICENSE}) \\
+          \grayrow \textbf{Information Page} & \url{https://seu-ml-assign.github.io} \\
+          \textbf{Open Source License} & MIT License (\url{https://tvj.one/ml-tex/blob/master/LICENSE}) \\
         \bottomrule
         \end{tabular}%
       \egroup
@@ -69,14 +71,14 @@
           \toprule
           \textbf{Option} & \textbf{Description} & \textbf{Default} \\
           \midrule\midrule
-          \grayrow \texttt{solution} & Write solutions (for students). & \textbullet \\
+          \grayrow \texttt{solution} & Write solutions (for students). & \Large\textbullet \\
           \texttt{problem} & Write problem sets (for instructors). & \\
           \hline
-          \grayrow \texttt{oneside} & One-sided document. & \textbullet \\
+          \grayrow \texttt{oneside} & One-sided document. & \Large\textbullet \\
           \texttt{twoside}& Two-sided document. & \\
           \hline
           \grayrow \texttt{9pt} & Set font size as 9 points. & \\
-          \texttt{10pt} & Set font size as 10 points. & \textbullet \\
+          \texttt{10pt} & Set font size as 10 points. & \Large\textbullet \\
           \grayrow \texttt{11pt} & Set font size as 11 points. & \\
           \texttt{12pt} & Set font size as 12 points. & \\
         \bottomrule
@@ -98,7 +100,7 @@
 
   \problem{Document Properties}
 
-    \subsection{Fields}
+    \subproblem{Fields}
 
       There are several fields to set.
       The \verb|\mainproblem{}| can be left empty.
@@ -118,12 +120,12 @@
       With these fields set, you can use the command \verb|\maketitle| to print the title.
       At the same time, the metadata for the PDF document is automatically set.
 
-    \subsection{Problem Mode Only Properties}\label{subsec:prob_only_properties}
+    \subproblem{Problem Mode Only Properties}\label{subsec:prob_only_properties}
     One of the fields \verb|\author{}| and \verb|\instructor{}| can be omitted or set as empty provided that they are the same.
 
   \problem{Section Title (Problem) Settings}
 
-    \subproblem{Normal Title}
+    \subproblem{Normal Title}\label{subsec:section_normal_title}
 
       The title of a problem can be set as \verb|\problem{This is a Section Title}| or uses a lower level command \verb|\section{This is a Section Title}|.
       There are two slight different between these two ways.
@@ -132,7 +134,7 @@
         \item The optional argument of \verb|\section{}| will set the name in the ToC which is by default in \LaTeX{} in the format of \verb|\section[<ToC Name>]{<Section Title Name>}|.
         By contrast, the optional argument in \verb|\problem{}| sets the problem points as is detailed in \S\ref{subsec:problem_with_points}.
       \end{itemize}
-      \verb|\section[\thesection:~<Title>]{<Title>}|
+      \verb|\section[\thesection~<Title>]{<Title>}|
       is equivalent to
       \verb|\problem{<Title>}| or \verb|\problem[]{<Title>}|.
       
@@ -193,31 +195,94 @@
   \setproblem{4}
   \problem{Subsection Title (Sub Problem) Settings}
 
-    \subproblem{Normal Title} This is a normal title using command \verb|\subproblem{Normal Title}| or its equivalent command \verb|\subsection{Normal Title}|.
+    \subproblem{Normal Title} This is a normal title using command \verb|\subproblem{Normal Title}| or alternatively the command \verb|\subsection{Normal Title}|.
+    There is a slight difference between these two commands which is similar to the case stated in \S\ref{subsec:section_normal_title}.
+    The command
+    \verb|\subproblem{}| adds the sub problem number in ToC and bookmarks.
+    \verb|\subsection[(\arbic{subsection}) <Title>]{<Title>}|
+    is equivalent to \verb|\subproblem{<Title>}|.
 
     \subproblem{} Use \verb|\subproblem{}| or \verb|\subsection{}| if only the sub problem number is required (like this line).
 
     \subproblem{Subsection Number} Similar to \verb|\setproblem{}|, there is also \verb|\setsubproblem{}|.
 
+    \subproblem{Subsubsection (Sub Sub Problem)} For completeness,
+    \verb|\subsubsection{}| and \verb|\subsubproblem{}| are provided.
+    One example is \S\ref{subsubsec:hint}, where
+    \verb|\subsubsection[\arbic{subsubsection}. <Title>]{<Title>}|
+    is equivalent to \verb|\subsubproblem{<Title>}|.
+
   \problem{Other Tools}
 
-    \subsection{Equation Numbering} The equation number is within the section (problem), for example
-
-      \begin{equation}\label{eq:2-1-det}
+    \subproblem{Equation Numbering} The equation number is within the section (problem), for example
+      \begin{equation}\label{eq:eq_num_example}
         \mathrm{det}(\mathbf{A})=1\times\begin{vNiceArray}{rr}
           -5&3\\-6&4
         \end{vNiceArray}-(-3)\times\begin{vNiceArray}{rr}
           3&3\\6&4
         \end{vNiceArray}+3\times\begin{vNiceArray}{rr}
           3&-5\\6&-6
-        \end{vNiceArray}=1\times(-2)+3\times(-6)+3\times 12=16.
+        \end{vNiceArray}=1\times(-2)+3\times(-6)+3\times 12=16,
       \end{equation}
+      which uses the \texttt{equation} environment and can be referenced using the command \verb|\eqref{eq:xxx}|
+      with a corresponding \verb|\label{eq:xxx}| in Eq.~\eqref{eq:eq_num_example}.
 
-    \subsection{Maths Packages} Maths Package \texttt{mathtools}, \texttt{amssymb}, \texttt{amsthm}, \texttt{bm} and \texttt{nicematrix} are automatically loaded.
+    \subproblem{Maths Packages} Maths Package \texttt{mathtools}, \texttt{amssymb}, \texttt{amsthm}, \texttt{bm} and \texttt{nicematrix} are automatically loaded.
     The \texttt{nicematrix} package is especially powerful in terms of writing a matrix.
     You can find its documentation at \url{https://ctan.org/pkg/nicematrix}.
+    It is worth noting that \texttt{nccmath} can lead to potential subsection (sub problem) title indentation problem and therefore should not be loaded.
 
-    \subsection{Fancy Box} A fancy box has been defined.
+    \subproblem{Theorem Environment} Environments \texttt{theorem}, \texttt{proposition}, \texttt{lemma}, \texttt{corollary} have been defined.
+    For example:
+    \begin{lemma}
+      This is a lemma. Its numbering is within the section.
+      You can create such environment using the code \verb|\begin{lemma} Your lemma contents here. \end{lemma}|.
+      % The same code pattern applies to \texttt{theorem}, \texttt{proposition} and \texttt{corollary}.
+    \end{lemma}
+
+    \subproblem{Additional Math Operator} The additional math operator is listed in the table below.
+    \begin{table}[htbp]
+      \begin{threeparttable}
+        \bgroup
+          \def\arraystretch{1.2}
+          \setlength{\tabcolsep}{1.5em}
+          \begin{tabular}{lll}
+          \toprule
+            \textbf{Command} & \textbf{Definition} & \textbf{Inline Example} \\
+            \midrule\midrule
+            \grayrow \verb|\argmin| & \verb|\DeclareMathOperator*{\argmin}{\arg\min}| & $\argmin_{x}(x-2)^2+1$ \\
+            \verb|\argmax| & \verb|\DeclareMathOperator*{\argmax}{\arg\max}| & $\argmax_{\mathbf{x}} f(\mathbf{x})$ \\
+          \bottomrule
+          \end{tabular}%
+          \begin{tablenotes}\footnotesize
+            \item Operators defined with the \texttt{*} after \verb|\DeclareMathOperator| have their subscript under the operator in the \texttt{equation} mode, which can be suppressed by adding \verb|\nolimits| before the \verb|_|.
+          \end{tablenotes}
+        \egroup
+      \end{threeparttable}
+    \end{table}
+
+    Here is an example:
+    \begin{lstlisting}[language=tex,numbers=none,morekeywords={begin}]
+\begin{equation}
+  \argmin_{x}(x-2)^2+1,\quad \argmax_{\mathbf{x}} f(\mathbf{x}),\quad \argmin\nolimits_{\alpha}g(\alpha)
+\end{equation}
+    \end{lstlisting}
+    \begin{equation}
+      \argmin_{x}(x-2)^2+1,\quad \argmax_{\mathbf{x}} f(\mathbf{x}),\quad \argmin\nolimits_{\alpha}g(\alpha)
+    \end{equation}
+
+    \subproblem{Shortcuts} Some shortcuts commands have been defined in this class.
+
+      \subsubproblem{Hint}\label{subsubsec:hint}
+      You can easily use command \verb|\hint{}| to show a hint to a problem.
+      This is especially useful in the \texttt{problem} mode.
+      \hint{You can use \texttt{\string\renewcommand\{\string\hintstyle\}\{<Your Style>\}} to change the default one.}
+
+    \subproblem{Code Block} You can use code blocks in this class which is implemented by the \texttt{lstlisting} environment.
+    Their default styles have been set and you can make changes by passing optional arguments when using the environment.
+    For more information, please refer to \url{https://ctan.org/pkg/listings}.
+
+    \subproblem{Fancy Box} A fancy box has been defined.
       \begin{fancybox}{This is a Fancy Box}
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin viverra massa rutrum felis vulputate, ac faucibus velit accumsan. Vivamus aliquet felis nec interdum sollicitudin. Nullam ornare eu velit id cursus. Maecenas a sodales velit, vel cursus magna. Cras lobortis venenatis.
       \end{fancybox}
@@ -256,9 +321,11 @@
 
     \begin{multicols}{2}
       \begin{itemize}
-        \item [\textbf{v1.1}] 2022/03/22 -- Bug Fix and Enhancement
+        \item [\textbf{v1.1}] 2022/03/28 -- Bug Fix and Enhancement
           \begin{enumerate}
             \item Add \verb|\mainproblem{}| command;
+            \item Add \verb|\subsubproblem{}| command;
+            \item Add \verb|\hint{}| shortcut;
             \item Support for \verb|\section*{}|, \verb|\problem*{}|, \verb|\subsection*{}| and \verb|\subproblem*{}|;
             \item Fix ToC/Bookmarks problem;
             \item Set footnote line style;
