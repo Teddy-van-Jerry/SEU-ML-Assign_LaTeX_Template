@@ -32,7 +32,7 @@ Please refer to the [documentation](seu-ml-assign-doc.pdf).
 The main higher level commands provided in this template are `\problem[<points>]{title}` and `\subproblem{title}`.
 
 ## Publication
-This project has been contained in [**CTAN**](https://ctan.org/pkg/seu-ml-assign), and so is in **TeX Live**.
+This project has been contained in [**CTAN**](https://ctan.org/pkg/seu-ml-assign), and so is in **TeX Live** and **MikTeX**.
 
 <details><summary>Install on TeX Live</summary>
   <p>
