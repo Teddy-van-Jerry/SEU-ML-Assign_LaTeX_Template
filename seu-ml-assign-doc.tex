@@ -19,6 +19,7 @@
 
 \renewcommand{\sectionheadname}{Section}
 \renewcommand{\pdftitleadditionalname}{}
+\definecolor{tblgray}{rgb}{ .906,  .902,  .902}
 
 % option for tabular with '\midrule'
 \aboverulesep = 0mm \belowrulesep = 0mm
@@ -37,17 +38,18 @@
       \bgroup
         \def\arraystretch{1.2}
         \setlength{\tabcolsep}{1.5em}
+        \rowcolors{1}{tblgray}{white}
         \begin{tabular}{ll}
         \toprule
-          \grayrow \textbf{Package Class Name} & \texttt{seu-ml-assign} \\
+          \textbf{Package Class Name} & \texttt{seu-ml-assign} \\
           \textbf{Version} & 1.1 (2022/03/28) \\
-          \grayrow \textbf{Description} & \LaTeX{} Template for Southeast University Machine Learning Assignment \\
+          \textbf{Description} & \LaTeX{} Template for Southeast University Machine Learning Assignment \\
           \textbf{Author} & Teddy van Jerry (Wuqiong Zhao) \\
-          \grayrow \textbf{Maintainer} & Teddy van Jerry (Wuqiong Zhao) \\
+          \textbf{Maintainer} & Teddy van Jerry (Wuqiong Zhao) \\
           \textbf{GitHub Repository} & \url{https://tvj.one/ml-tex} \\
-          \grayrow \textbf{Issues} & \url{https://tvj.one/ml-tex/issues} \\
+          \textbf{Issues} & \url{https://tvj.one/ml-tex/issues} \\
           \textbf{CTAN Package} & \url{https://www.ctan.org/pkg/seu-ml-assign} \\
-          \grayrow \textbf{Information Page} & \url{https://seu-ml-assign.github.io} \\
+          \textbf{Information Page} & \url{https://seu-ml-assign.github.io} \\
           \textbf{Open Source License} & MIT License (\url{https://tvj.one/ml-tex/blob/master/LICENSE}) \\
         \bottomrule
         \end{tabular}%
@@ -67,20 +69,23 @@
       \bgroup
         \def\arraystretch{1.2}
         \setlength{\tabcolsep}{1.5em}
+        \rowcolors{1}{white}{tblgray}
         \begin{tabular}{llc}
           \toprule
           \textbf{Option} & \textbf{Description} & \textbf{Default} \\
           \midrule\midrule
-          \grayrow \texttt{solution} & Write solutions (for students). & \Large\textbullet \\
+          \texttt{solution} & Write solutions (for students). & \Large\textbullet \\
           \texttt{problem} & Write problem sets (for instructors). & \\
           \hline
-          \grayrow \texttt{oneside} & One-sided document. & \Large\textbullet \\
+          \texttt{oneside} & One-sided document. & \Large\textbullet \\
           \texttt{twoside}& Two-sided document. & \\
           \hline
-          \grayrow \texttt{9pt} & Set font size as 9 points. & \\
+          \texttt{9pt} & Set font size as 9 points. & \\
           \texttt{10pt} & Set font size as 10 points. & \Large\textbullet \\
-          \grayrow \texttt{11pt} & Set font size as 11 points. & \\
+          \texttt{11pt} & Set font size as 11 points. & \\
           \texttt{12pt} & Set font size as 12 points. & \\
+          \hline
+          \texttt{lang=} & Set the language. (English as \texttt{en}, Chinese as \texttt{cn}.) & \texttt{en} \\
         \bottomrule
       \end{tabular}%
       \egroup

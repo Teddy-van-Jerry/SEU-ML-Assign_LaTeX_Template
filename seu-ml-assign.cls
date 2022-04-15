@@ -16,18 +16,24 @@
 \ProvidesClass{seu-ml-assign}[2022/03/28 SEU Machine Learning Assignment Template]
 
 %% Class and Options
+\RequirePackage{xkeyval}
 \def\@@ptsize{10pt} % font size
-\DeclareOption{9pt}{\def\@@ptsize{9pt}}
-\DeclareOption{10pt}{\def\@@ptsize{10pt}}
-\DeclareOption{11pt}{\def\@@ptsize{11pt}}
-\DeclareOption{12pt}{\def\@@ptsize{12pt}}
+\DeclareOptionX{9pt}{\def\@@ptsize{9pt}}
+\DeclareOptionX{10pt}{\def\@@ptsize{10pt}}
+\DeclareOptionX{11pt}{\def\@@ptsize{11pt}}
+\DeclareOptionX{12pt}{\def\@@ptsize{12pt}}
 \def\@@solutionmode{1} % default as the solution mode
-\DeclareOption{solution}{\def\@@solutionmode{1}} % solution mode
-\DeclareOption{problem}{\def\@@solutionmode{0}} % problem mode
+\DeclareOptionX{solution}{\def\@@solutionmode{1}} % solution mode
+\DeclareOptionX{problem}{\def\@@solutionmode{0}} % problem mode
 \def\@twoside{0} % default as oneside
-\DeclareOption{oneside}{\def\@twoside{0}} % one-side document
-\DeclareOption{twoside}{\def\@twoside{1}} % two-side document
-\ProcessOptions\relax
+\DeclareOptionX{oneside}{\def\@twoside{0}} % one-side document
+\DeclareOptionX{twoside}{\def\@twoside{1}} % two-side document
+\def\@@lang@en{en} % English
+\def\@@lang@cn{cn} % Chinese
+\def\@@lang{\@@lang@en} % default as English (en)
+\DeclareOptionX{lang}{\def\@@lang{#1}}
+\DeclareOptionX*{\PackageWarning{lang}{`\CurrentOption' ignored}}% For unknown options
+\ProcessOptionsX\relax
 \LoadClass[a4paper,onecolumn,\@@ptsize]{article}
 
 %% Page Settings
@@ -35,7 +41,17 @@
 \newcommand{\firstfooteradditionalheight}{2em} % additional height for footer on the first page
 \hfuzz=.5em % disable false positive of overfull \hbox
 
+%% Default Names
+\def\@course@default{Machine Learning}
+
+%% Language Settings
+\ifx
+    \@@lang\@@lang@cn\RequirePackage{ctex}
+    \def\@course@default{机器学习}
+\fi
+
 %% Document Propertities
+\global\let\@course\@course@default
 \global\let\@assignno\@empty
 \global\let\@semester\@empty
 \global\let\@studentID\@empty
@@ -43,6 +59,8 @@
 \global\let\@duedate\@empty
 \global\let\@author\@empty
 \global\let\@mainproblem\@empty
+\global\let\@mainproblem\@empty
+\newcommand{\course}[1]{\gdef\@course{#1}} % Assignment Number
 \newcommand{\assignno}[1]{\gdef\@assignno{#1}} % Assignment Number
 \newcommand{\semester}[1]{\gdef\@semester{#1}} % Semester
 \newcommand{\studentID}[1]{\gdef\@studentID{#1}} % Student ID
@@ -52,7 +70,7 @@
 
 %% Fonts and Colors
 \RequirePackage[T1]{fontenc}
-\RequirePackage[usenames,dvipsnames]{xcolor}
+\RequirePackage[usenames,dvipsnames,table]{xcolor}
 
 %% TikZ Rule
 \RequirePackage{tikz}
@@ -228,7 +246,7 @@
         \if\@@solutionmode1
             \textsc{\@title~\@assignno} -- \@studentID~\@author
         \else
-            \textsc{Machine Learning \@title~\@assignno}
+            \textsc{\@course \@title~\@assignno}
         \fi
     }
     \rhead{\thepage}
@@ -247,13 +265,13 @@
         \if\@@solutionmode1
             \textsc{\@title~\@assignno} -- \@studentID~\@author
         \else
-            \textsc{Machine Learning \@title~\@assignno}
+            \textsc{\@course \@title~\@assignno}
         \fi
         \renewcommand\headrule{\vspace{-0.7em}\tikzrule[BrickRed, path fading=east]{.5\textwidth}{0.3mm}}
     }
     \fancyhead[RE]{
         \fontfamily{LinuxLibertineT-OsF}\selectfont
-        \textsc{Machine Learning \@title~\@assignno}
+        \textsc{\@course \@title~\@assignno}
     }
     \fancyhead[LE,RO]{\thepage}
 \fi
@@ -308,7 +326,7 @@
         \centering
         {
             \fontsize{36}{48}\selectfont
-            \textcolor{Plum}{\scshape Machine Learning}
+            \textcolor{Plum}{\scshape \@course}
         }\\[.5em]
         {
             \if\@@solutionmode1
@@ -325,8 +343,8 @@
             \large
             \fontfamily{LinuxBiolinumT-OsF}\selectfont
             \textcolor{BrickRed}{\@semester}
-            \vspace{2mm}
         }
+
         \LARGE\@title~{\fontfamily{bch}\selectfont\@assignno}
     \end{minipage}
     \\[.3em]
@@ -353,11 +371,11 @@
             \if\@@solutionmode1
                 \pdftitleadditionalname{}
             \fi
-            - Machine Learning%
+            - \@course%
         },
-        pdfsubject={Machine Learning},
+        pdfsubject={\@course},
         pdfkeywords={%
-            Machine Learning, \@title%
+            \@course, \@title%
             \ifx\@mainproblem\@empty\else%
                 , \@mainproblem%
             \fi%
